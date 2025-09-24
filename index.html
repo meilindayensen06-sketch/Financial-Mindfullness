@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -8,20 +8,49 @@
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, 
-    .question { margin-bottom: 18px; padding: 12px; border-radius: 6px; background: #f4f6f7; }
-    .scale { margin-top: 8px; }
-    label { margin-right: 10px; }
-    button { padding: 10px 16px; margin-right: 8px; border: none; border-radius: 6px; cursor: pointer; }
-    button#submitBtn { background: #2ecc71; color: purple; }
-    button#downloadBtn { background: #3498db; color: blue; }
-    #result { margin-top: 18px; font-weight: bold; }
-    footer { margin-top: 30px; font-size: 0.9em; color: #555; }
-    .flex { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-    .small { font-size:0.9em; color:#333; margin-top:6px; }
-  </style>
-</head>
-<body>
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 100px 20px;
+      color: white;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+ header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .start-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .start-btn {
+      background: white;
+      color: #764ba2;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .start-btn:hover {
+      background: #764ba2;
+      color: white;
+      transform: scale(1.05);
   <h1> RASA SCALE - Financial Mindfulness</h1>
   <p>Petunjuk: Pilih satu jawaban untuk setiap pernyataan.<br>
   Skala: 1 = Sangat Tidak Setuju, 2 = Tidak Setuju, 3 = Netral, 4 = Setuju, 5 = Sangat Setuju.</p>
