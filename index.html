@@ -3,202 +3,128 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RASA CINTA</title>
+  <title>RASA</title>
   <style>
     body {
-      margin: 0;
-      POPINS :POPINS, POPINS;
-      background: linear-gradient(to bottom right, #dbeafe, #ffffff, #f3e8ff);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(to top, #e0f7fa, #ffffff);
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
     }
     .container {
       background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       max-width: 600px;
-      width: 100%;
-      text-align: center;
+      width: 90%;
     }
-    h1, h2 {
-      color: #6b21a8;
+    h1 {
+      color: purple;
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    p {
+      margin-bottom: 24px;
+      font-size: 18px;
+      color: #444;
+      min-height: 60px;
+    }
+    .likert {
+      margin: 20px 0;
+    }
+    label {
+      margin: 0 10px;
+      font-size: 16px;
+      cursor: pointer;
     }
     button {
-      background: #7e22ce;
+      background-color: #8e44ad;
       color: white;
       border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 1rem;
+      padding: 12px 24px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 1rem;
-      margin-top: 1rem;
+      font-size: 16px;
+      margin: 5px;
     }
     button:hover {
-      background: #6b21a8;
-    }
-    .progress {
-      height: 8px;
-      background: #e5e7eb;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 1rem;
-    }
-    .progress-bar {
-      height: 100%;
-      background: #7e22ce;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-    .emoji-options {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 1rem;
-    }
-    .emoji {
-      font-size: 2.5rem;
-      cursor: pointer;
-      filter: grayscale(1) opacity(0.6);
-      transition: transform 0.2s, filter 0.2s;
-    }
-    .emoji.selected {
-      filter: grayscale(0) opacity(1);
-      transform: scale(1.2);
-    }
-    .scale-text {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      color: #6b7280;
-      margin-top: 0.5rem;
-    }
-    .score-box {
-      margin-top: 1rem;
-      padding: 1rem;
-      background: #f3e8ff;
-      border-radius: 0.5rem;
-      color: #6b21a8;
-      font-weight: bold;
+      background-color: #732d91;
     }
   </style>
 </head>
 <body>
-  <div class="container" id="app">
-    <h1>R A S A</h1>
-    <p id="intro">Refleksi sederhana untuk melatih kesadaran dalam percintaan.</p>
-    <button id="startBtn">Mulai</button>
+  <div class="container">
+    <h1>RASA</h1>
+    <p id="statement">Refleksi sederhana untuk melatih kesadaran dalam <i>percintaan</i>.</p>
+    
+    <div id="likertContainer" class="likert" style="display:none;">
+      <label><input type="radio" name="likert" value="1"> 1</label>
+      <label><input type="radio" name="likert" value="2"> 2</label>
+      <label><input type="radio" name="likert" value="3"> 3</label>
+      <label><input type="radio" name="likert" value="4"> 4</label>
+      <label><input type="radio" name="likert" value="5"> 5</label>
+    </div>
+
+    <button id="startBtn" onclick="mulai()">Mulai</button>
+    <button id="nextBtn" onclick="nextStatement()" style="display:none;">Next</button>
   </div>
+
   <script>
-    const app = document.getElementById("app");
-    const questions = [
-      "Saya Percaya cinta sejati hanya datang sekali seumur hidup.",
-      "Saya merasa nyaman mengekspresikan perasaaan saya pada pasangan.",
+    const statements = [
+      "Saya percaya cinta sejati hanya datang sekali seumur hidup.",
+      "Saya merasa nyaman mengekspresikan perasaan saya pada pasangan.",
       "Saya percaya bahwa hubungan yang sehat harus berdasarkan kepercayaan.",
-      "Saya menganggap komunikasi terbuka adalah kunci hubungan yang bahagia."
+      "Saya menganggap komunikasi terbuka adalah kunci hubungan yang bahagia.",
       "Saya pernah merasakan jatuh cinta pada pandangan pertama.",
-      "Saya percaya bahwa cinta bisa tumbuh seiring waktu,meski awalnya tidak ada ketertarikan.",
+      "Saya percaya bahwa cinta bisa tumbuh seiring waktu, meski awalnya tidak ada ketertarikan.",
       "Saya bisa menerima kekurangan pasangan saya dengan lapang dada.",
-      "Saya percaya bahwa cinta saja tidak cukup tanpa komitmen.",
+      "Saya percaya bahwa cinta saja tidak cukup tanpa komitmen."
     ];
-    ];
 
-    let currentQuestion = 0;
-    let answers = [];
+    let index = 0;
+    let skor = 0;
 
-    document.getElementById("startBtn").addEventListener("click", () => {
-      showQuestion(currentQuestion);
-    });
-
-    function updateProgress() {
-      const percent = ((currentQuestion) / questions.length) * 100;
-      document.querySelector(".progress-bar").style.width = percent + "%";
+    function mulai() {
+      document.getElementById("statement").innerText = statements[index];
+      document.getElementById("startBtn").style.display = "none";
+      document.getElementById("nextBtn").style.display = "inline-block";
+      document.getElementById("likertContainer").style.display = "block";
     }
 
-    function showQuestion(index) {
-      app.innerHTML = `
-        <div class="progress"><div class="progress-bar"></div></div>
-        <h2>Pertanyaan Refleksi</h2>
-        <div class="question">
-          <p><strong>${questions[index]}</strong></p>
-          <div class="emoji-options">
-            <span class="emoji" data-value="1" title="Sangat Tidak Setuju">😟</span>
-            <span class="emoji" data-value="2" title="Tidak Setuju">😕</span>
-            <span class="emoji" data-value="3" title="Netral">😐</span>
-            <span class="emoji" data-value="4" title="Setuju">🙂</span>
-            <span class="emoji" data-value="5" title="Sangat Setuju">😄</span>
-          </div>
-          <div class="scale-text">
-            <span>Sangat Tidak Setuju</span>
-            <span>Sangat Setuju</span>
-          </div>
-        </div>
-        <button type="button" id="nextBtn">${index === questions.length - 1 ? "Selesai" : "Lanjut"}</button>
-      `;
-
-      updateProgress();
-
-      document.querySelectorAll(".emoji").forEach(emoji => {
-        emoji.addEventListener("click", () => {
-          document.querySelectorAll(".emoji").forEach(e => e.classList.remove("selected"));
-          emoji.classList.add("selected");
-        });
-      });
-
-      document.getElementById("nextBtn").addEventListener("click", () => {
-        const selected = document.querySelector(".emoji.selected");
-        if (selected) {
-          answers[index] = parseInt(selected.getAttribute("data-value"));
-          if (currentQuestion < questions.length - 1) {
-            currentQuestion++;
-            showQuestion(currentQuestion);
-          } else {
-            showThanks();
-          }
-        } else {
-          alert("Silakan pilih jawaban dulu.");
+    function nextStatement() {
+      const radios = document.getElementsByName("likert");
+      let nilai = 0;
+      for (let r of radios) {
+        if (r.checked) {
+          nilai = parseInt(r.value);
+          r.checked = false; // reset
         }
-      });
-    }
-
-    function showThanks() {
-      const totalScore = answers.reduce((a, b) => a + b, 0);
-      const avgScore = (totalScore / questions.length).toFixed(2);
-      let interpretation = "";
-
-      if (totalScore <= 10) {
-        interpretation = "Kesadaran finansial Anda masih rendah. Perlu refleksi lebih lanjut.";
-      } else if (totalScore <= 18) {
-        interpretation = "Kesadaran finansial Anda cukup baik, masih ada ruang perbaikan.";
-      } else {
-        interpretation = "Bagus! Anda sudah memiliki financial mindfulness yang kuat.";
       }
 
-      app.innerHTML = `
-        <h2>Terima Kasih!</h2>
-        <p>Jawaban Anda telah tercatat. Teruslah melatih kesadaran finansial untuk hidup yang lebih mindful.</p>
-        <div class="score-box">
-          Skor Anda: ${totalScore} / ${questions.length * 5} <br>
-          (Rata-rata: ${avgScore}) <br><br>
-          ${interpretation}
-        </div>
-        <button id="restartBtn">Kembali ke Awal</button>
-      `;
+      if (nilai === 0) {
+        alert("Silakan pilih skala 1–5 dulu.");
+        return;
+      }
 
-      document.getElementById("restartBtn").addEventListener("click", () => {
-        location.reload();
-      });
+      skor += nilai;
+      index++;
+
+      if (index < statements.length) {
+        document.getElementById("statement").innerText = statements[index];
+      } else {
+        document.getElementById("statement").innerText = 
+          "✨ Refleksi selesai. Skor total Anda: " + skor + " ✨";
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("likertContainer").style.display = "none";
+      }
     }
   </script>
 </body>
 </html>
 
-
-
-
-           
-     
-
-     
+   
+    
