@@ -15,7 +15,7 @@
       min-height: 100vh;
     }
     .container {
-      background: purple;
+      background: white;
       padding: 2rem;
       border-radius: 1rem;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -121,12 +121,20 @@
       });
     }
 
-    function showThanks() {
-      app.innerHTML = `
+    app.innerHTML = `
         <h2>Terima Kasih!</h2>
         <p>Jawaban Anda telah tercatat. Teruslah melatih kesadaran finansial untuk hidup yang lebih mindful.</p>
+        <div class="score-box">Skor Anda: ${totalScore} (Rata-rata: ${avgScore})</div>
         <button id="restartBtn">Kembali ke Awal</button>
       `;
+
+      document.getElementById("restartBtn").addEventListener("click", () => {
+        location.reload();
+      });
+    }
+  </script>
+</body>
+</html>
 
       document.getElementById("restartBtn").addEventListener("click", () => {
         location.reload();
