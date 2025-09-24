@@ -13,6 +13,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin: 0;
     }
     .container {
       background: white;
@@ -20,6 +21,7 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       max-width: 600px;
+      width: 90%;
     }
     h1 {
       color: purple;
@@ -55,14 +57,16 @@
   <div class="container">
     <h1>RASA</h1>
     <p id="statement">Refleksi sederhana untuk melatih kesadaran dalam <i>percintaan</i>.</p>
+    
     <div id="options" class="options" style="display:none;">
-      <p>Pilih jawaban:</p>
+      <p>Pilih jawaban (1 = sangat tidak setuju, 5 = sangat setuju):</p>
       <button onclick="jawab(1)">1</button>
       <button onclick="jawab(2)">2</button>
       <button onclick="jawab(3)">3</button>
       <button onclick="jawab(4)">4</button>
       <button onclick="jawab(5)">5</button>
     </div>
+
     <button id="startBtn" onclick="mulai()">Mulai</button>
   </div>
 
@@ -100,10 +104,24 @@
     function tampilkanHasil() {
       let interpretasi = "";
       if (skor >= 8 && skor <= 18) {
-        interpretasi = "✨ Skor Anda menunjukkan tingkat cinta yang relatif rendah. Ini bisa berarti Anda cenderung berhati-hati dalam membuka diri atau mengekspresikan perasaan. Hal ini wajar, tetapi Anda dapat mencoba melatih komunikasi emosional agar hubungan lebih terbuka dan sehat.";
+        interpretasi = "✨ Skor Anda menunjukkan tingkat cinta yang relatif rendah. Anda mungkin cenderung berhati-hati dalam membuka diri. Latih komunikasi emosional agar hubungan lebih terbuka.";
       } else if (skor >= 19 && skor <= 29) {
-        interpretasi = "✨ Skor Anda berada pada tingkat sedang. Artinya, Anda cukup seimbang antara mengekspresikan kasih sayang dan menjaga diri. Anda bisa memanfaatkan keseimbangan ini untuk membangun hubungan yang saling mendukung dan saling menghargai.";
+        interpretasi = "✨ Skor Anda berada pada tingkat sedang. Artinya, Anda cukup seimbang antara mengekspresikan kasih sayang dan menjaga diri.";
       } else if (skor >= 30 && skor <= 40) {
-        interpretasi = "✨ Skor Anda m
+        interpretasi = "✨ Skor Anda menunjukkan tingkat cinta yang tinggi. Anda hangat dan penuh perhatian dalam hubungan, namun tetap penting menjaga batas sehat.";
+      }
 
-     
+      document.querySelector(".container").innerHTML = `
+        <h1>Hasil Refleksi</h1>
+        <p>Skor Akhir Anda: <b>${skor}</b></p>
+        <p>${interpretasi}</p>
+        <hr>
+        <p><i>“Cinta adalah perjalanan, bukan tujuan akhir. Dari setiap refleksi kecil ini, semoga kamu semakin mengenal dirimu sendiri—apa yang kamu yakini, apa yang kamu rasakan, dan apa yang benar-benar penting dalam hubungan.”</i> 💜</p>
+        <button onclick="location.reload()">Ulangi Lagi</button>
+      `;
+    }
+  </script>
+</body>
+</html>
+
+    
