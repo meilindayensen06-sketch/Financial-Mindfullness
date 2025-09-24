@@ -58,6 +58,7 @@
     <h1>RASA</h1>
     <p id="statement">Refleksi sederhana untuk melatih kesadaran dalam <i>percintaan</i>.</p>
     
+    <!-- Pilihan jawaban (Likert) -->
     <div id="options" class="options" style="display:none;">
       <p>Pilih jawaban (1 = sangat tidak setuju, 5 = sangat setuju):</p>
       <button onclick="jawab(1)">1</button>
@@ -67,7 +68,8 @@
       <button onclick="jawab(5)">5</button>
     </div>
 
-    <button id="startBtn" onclick="mulai()">Mulai</button>
+    <!-- Tombol mulai -->
+    <button id="startBtn">Mulai</button>
   </div>
 
   <script>
@@ -84,6 +86,9 @@
 
     let index = 0;
     let skor = 0;
+
+    // Supaya tombol mulai langsung aktif
+    document.getElementById("startBtn").addEventListener("click", mulai);
 
     function mulai() {
       document.getElementById("startBtn").style.display = "none";
@@ -104,11 +109,11 @@
     function tampilkanHasil() {
       let interpretasi = "";
       if (skor >= 8 && skor <= 18) {
-        interpretasi = "✨ Skor Anda menunjukkan tingkat cinta yang relatif rendah. Anda mungkin cenderung berhati-hati dalam membuka diri. Latih komunikasi emosional agar hubungan lebih terbuka.";
+        interpretasi = "✨ Skor Anda menunjukkan tingkat cinta yang relatif rendah. Anda mungkin cenderung berhati-hati dalam membuka diri.";
       } else if (skor >= 19 && skor <= 29) {
         interpretasi = "✨ Skor Anda berada pada tingkat sedang. Artinya, Anda cukup seimbang antara mengekspresikan kasih sayang dan menjaga diri.";
       } else if (skor >= 30 && skor <= 40) {
-        interpretasi = "✨ Skor Anda menunjukkan tingkat cinta yang tinggi. Anda hangat dan penuh perhatian dalam hubungan, namun tetap penting menjaga batas sehat.";
+        interpretasi = "✨ Skor Anda menunjukkan tingkat cinta yang tinggi. Anda hangat dan penuh perhatian, tapi tetap perlu menjaga batas sehat.";
       }
 
       document.querySelector(".container").innerHTML = `
@@ -124,4 +129,3 @@
 </body>
 </html>
 
-    
