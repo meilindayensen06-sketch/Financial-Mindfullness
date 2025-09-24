@@ -1,49 +1,45 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RASA Financial Mindfulness</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: #333;
-      overflow-x: hidden;
-    header {
-      text-align: center;
-      padding: 100px 20px;
-      color: white;
-    }
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
- header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
+export default function App() {
+  const [start, setStart] = useState(false);
+  const [answer, setAnswer] = useState(null);
 
-    .start-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 40px;
-    }
+  const questions = [
+    "Saya berhenti sejenak sebelum membeli sesuatu.",
+    "Saya sadar emosi apa yang muncul saat mengeluarkan uang.",
+    "Saya menyesuaikan pengeluaran dengan prioritas saya.",
+  ];
 
-    .start-btn {
-      background: white;
-      color: #764ba2;
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-purple-100 p-6">
+      {!start ? (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center"
+        >
+          <h1 className="text-4xl font-bold mb-4 text-purple-700">
+            RASA Financial Mindfulness
+          </h1>
+          <p className="text-gray-600 mb-6 max-w-md mx-auto">
+            Refleksi sederhana untuk melatih kesadaran dalam pengelolaan keuangan
+            sehari-hari.
+          </p>
+          <Button
+            className="px-6 py-3 rounded-2xl bg-purple-600 text-white hover:bg-purple-700 shadow-lg"
+            onClick={() => setStart(true)}
+          >
+            Mulai
+          </Button>
+        </motion.div>
+      ) : (
+        <motion.div
+          initial={{ opacity:
 
+    
     .start-btn:hover {
       background: #764ba2;
       color: white;
